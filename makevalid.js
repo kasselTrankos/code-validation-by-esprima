@@ -15,6 +15,13 @@
  * CONTRACT, TORT OR OTHERWISE , ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  */
+var argvs = process.argv;
+var showAll  = false;
+argvs.forEach(function (val, index, array) {
+  if(/^show/.test(val)){
+    showAll=(val==='show=err');
+  }
+});
 var fs = require('fs'),
     path = require('path'),
     colors = require('colors'),
@@ -220,14 +227,16 @@ function showConsoleData(filename){
     }
     console.log('\n\t\tOK:'+ok+'    KO:'+String(ckos).cyan );
     console.log('\n\nTOTAL : '+ count);
-    toHtml.push({
-        title: filename,
-        errGetSpinners: kos,
-        errCloseSpinners: ckos,
-        getSpinners:getSpinners,
-        closeSpinners:closeSpinners,
-        total: count
-    });
+    if(showAll || kos>0 || ckos>0){
+        toHtml.push({
+            title: filename,
+            errGetSpinners: kos,
+            errCloseSpinners: ckos,
+            getSpinners:getSpinners,
+            closeSpinners:closeSpinners,
+            total: count
+        });
+    }
     closeSpinners = [];
     getSpinners = [];
     count=0;

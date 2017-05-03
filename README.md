@@ -1,1 +1,3 @@
-"#Esprima validacion para TELCO" 
+#TELCO
+	Validación de PopupService cantidad, posición y parámetros
+
