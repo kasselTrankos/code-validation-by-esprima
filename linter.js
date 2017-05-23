@@ -3,11 +3,9 @@ var linter = require("eslint").linter,
 	CLIEngine = require("eslint").CLIEngine,
 	espree = require('espree'),
     SourceCode = require("eslint").SourceCode;
- var srcCode = fs.readFileSync('code1.js');
- var ast = espree.parse(srcCode.toString(), { tolerant: true, loc: true, range:true });
- //
- //var code = new SourceCode(srcCode, ast);
-//console.log(ast);
+///////////////////////////////////////////////////////////////////////////
+var srcCode = fs.readFileSync('code1.js');
+var ast = espree.parse(srcCode.toString(), { tolerant: true, loc: true, range:true });
 var espree = require('espree');
 var cli = new CLIEngine({
     rules: {
