@@ -160,7 +160,7 @@ CNT.ngModule.controller('undertakeCPTrendAnalysisController', [
 					$scope.sorting = data.sorted;
 				}
 				if (data.query) {
-					if ($scope.undertakeCPTrendAnalysisData.backShowDetailOfCPReport == false) {
+					if ($scope.undertakeCPTrendAnalysisData.backShowDetailOfCPReport === false) {
 						var queryAux = { partyRole: data.query.partyRole };
 						data.query = queryAux;
 					}
@@ -169,7 +169,7 @@ CNT.ngModule.controller('undertakeCPTrendAnalysisController', [
 			}
 		};
 		$scope.doStr_parse = function (data, _generate, str) {
-			var str = str || '';
+			str = str || '';
 			angular.forEach(data, function (value, key) {
 				var _str = str + key;
 				if (angular.isObject(value)) {
@@ -207,11 +207,11 @@ CNT.ngModule.controller('undertakeCPTrendAnalysisController', [
 					$scope.undertakeCPTrendAnalysisView.Cliente.NomApe = partyRole.name;
 					$scope.undertakeCPTrendAnalysisData.partyRole = partyRole;
 				}
-				if ($scope.undertakeCPTrendAnalysisData.backShowDetailOfCPReport == true) {
+				if ($scope.undertakeCPTrendAnalysisData.backShowDetailOfCPReport === true) {
 					$scope.buscar(true);
 				}
 			}
-			if (data.customerProblemType && data.customerProblemType.id == 1) {
+			if (data.customerProblemType && data.customerProblemType.id === 1) {
 				$scope.undertakeCPTrendAnalysisFunctionality.verFactura = true;
 			}
 		};
@@ -220,7 +220,7 @@ CNT.ngModule.controller('undertakeCPTrendAnalysisController', [
 			$scope.CG_manageCustomerAccount_OUT = data.customerAccount;
 			$scope.undertakeCPTrendAnalysisView.cuentasCliente = data.customerAccount;
 		};
-		$scope.onSearchPartyRole = function (event, data) {
+		$scope.onSearchPartyRole = function () {
 			if ($scope.CG_searchPartyRole_OUT.party) {
 				delete $scope.CG_searchPartyRole_OUT.party;
 			}
@@ -382,7 +382,7 @@ CNT.ngModule.controller('undertakeCPTrendAnalysisController', [
 			force_ = force_ || false;
 			$scope.undertakeCPTrendAnalysisView.situacionesProblema = $scope.undertakeCPTrendAnalysisData.situacionesProblema;
 			$scope.undertakeCPTrendAnalysisFunctionality.submitted = true;
-			_correctFechas_and_comment = true;
+			var _correctFechas_and_comment = true;
 			if (force_ || $scope.undertakeCPTrendAnalysisForm.$valid && _correctFechas_and_comment) {
 				$scope.undertakeCPTrendAnalysisFunctionality.searchError = false;
 				if (!force_) {
@@ -434,7 +434,7 @@ CNT.ngModule.controller('undertakeCPTrendAnalysisController', [
 			}
 		};
 		$scope.ordenarPor = function (field) {
-			$scope.sorting.mode = field === $scope.sorting.field && $scope.sorting.mode == 'Asc' ? 'Desc' : 'Asc';
+			$scope.sorting.mode = field === $scope.sorting.field && $scope.sorting.mode === 'Asc' ? 'Desc' : 'Asc';
 			$scope.sorting.field = field;
 			$scope.lastSearch.sorted = $scope.sorting;
 			$scope.searchCustomerProblem($scope.searchCustomerProblem_IN());
@@ -470,9 +470,9 @@ CNT.ngModule.controller('undertakeCPTrendAnalysisController', [
 				if ($scope.GetCustomerData_OUT.individualName) {
 					$scope.undertakeCPTrendAnalysisView.Cliente.NomApe = $scope.GetCustomerData_OUT.individualName.formattedName;
 					$scope.undertakeCPTrendAnalysisData.partyRole.name = $scope.GetCustomerData_OUT.individualName.formattedName;
-					var data = T3_StorageService.getItem({ cgName: 'undertakeCPAnalysisState' });
-					if (data) {
-						$scope.lastSearch = data;
+					var _data = T3_StorageService.getItem({ cgName: 'undertakeCPAnalysisState' });
+					if (_data) {
+						$scope.lastSearch = _data;
 						$scope.lastSearch.partyRole.name = $scope.GetCustomerData_OUT.individualName.formattedName;
 					}
 					$scope.lastSearch.partyRole.name = $scope.GetCustomerData_OUT.individualName.formattedName;

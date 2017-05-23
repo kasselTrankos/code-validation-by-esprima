@@ -304,7 +304,6 @@ function generateHTML(){
     fs.writeFile('popupService.html', generatedHTML, function (err) {
         if (err)
             return console.log(err);
-        console.log('Hello World > helloworld.txt');
     });
 };
 

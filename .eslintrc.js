@@ -6,13 +6,13 @@ module.exports = {
         "angular": 1,
         "CNT":1
     },
-    "formatters":"html",
     "extends": "eslint:recommended",
     "rules": {
         "indent": [
             "error",
             "tab"
         ],
+        "eqeqeq": ["error", "always"],
         "linebreak-style": [
             "error",
             "windows"

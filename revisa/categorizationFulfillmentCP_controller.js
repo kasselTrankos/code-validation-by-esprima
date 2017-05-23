@@ -181,7 +181,7 @@ CNT.ngModule.controller('categorizationFulfillmentCPController', [
 				}
 			}
 
-			if ((ordersAndItems != null) && (ordersAndItems.length > 0)) {
+			if ((ordersAndItems !== null) && (ordersAndItems.length > 0)) {
 				$scope.cgtShowCustomerOrderHistoryOHIn.customerOrderWithProblem = ordersAndItems;
 			}
 		};
@@ -307,7 +307,7 @@ CNT.ngModule.controller('categorizationFulfillmentCPController', [
 							var abstractInfo = $scope.getCPMotiveAbstractInfo(customerOrder.id);
 
                             // Comprobación de motivos asociados
-							if (abstractInfo != null) {
+							if (abstractInfo !== null) {
 								item.cPMotive = abstractInfo.cPMotive;
 								item.cPSubmotive = abstractInfo.cPSubmotive;
 							}
