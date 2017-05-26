@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012 Sergej Tatarincev
+ * Copyright (c) 2017 Alvaro Touzón
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
  * documentation files (the "Software"), to deal in the Software without restriction, including without limitation
@@ -316,7 +316,7 @@ dir.readFiles(process.cwd(), {
     exclude: ['target', 'test']
     }, function(err, content, filename, next) {
         if (err) throw err;
-        if(!(/test/.test( filename) || /target/.test(filename))) {
+        if(!(/test/.test( filename) || /target/.test(filename)  || /cancelCustomerProblem/.test(filename) )) {
             ValidPopups(filename);
             showConsoleData(filename);
         }
