@@ -156,12 +156,12 @@ function ConsoleErr(){
 
 }
 dir.readFiles(process.cwd(), {
-    match: /_controller.js$/,
+    match: /_controller.js$|app.js$/,
     exclude: ['target', 'test']
     }, function(err, content, filename, next) {
         if (err) throw err;
         if(!(/test/.test( filename) || /target/.test(filename))) {
-            if(/_controller.js$/.test(filename)){
+            if(/_controller.js$/.test(filename) || /app.js$/.test(filename)){
                 var name = path.basename(filename);
 
                 console.log(`PROCESANDO: ${filename.grey}.`);
