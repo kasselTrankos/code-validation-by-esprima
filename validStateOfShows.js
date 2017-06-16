@@ -90,6 +90,7 @@ function isValid(filename){
                     }
                 }
             ],
+            loc: _states.callee.loc,
             "sourceType": "script"
         };
         ///fs.writeFile('joderse.js' , escodegen.generate(_obj), function(err){});

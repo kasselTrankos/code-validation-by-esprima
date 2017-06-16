@@ -1,9 +1,9 @@
 {
-	"stateName":"showDetailOfCPReport.showDetailOfCPNotifications",
+	"stateName":"showDetailOfCPReport.showDetailOfEconomicCP",
 	"url": "/showDetailOfEconomicCP",
 	"params": ["cgtShowDetailOfEconomicCPIn"],
 	"sticky": true,
-	"deepStateRedirect": true,
+	"deepStateRedirect": 12323,
 	"loadModule":["ngMessages", "uiDate", "ngFileUpload", "uiSelect"],
 	"loadCommonComponent": ["T3_CCP_UI_Grid.tablas","T3_CCP_UI_Modales","T3_CCP_UI_datePicker.inputDate", null],
 	"loadCG":[
