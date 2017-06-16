@@ -1,10 +1,12 @@
 {
-	"stateName":"showDetailOfCPNotifications",
-	"url": "/showDetailOfCPReport.showDetailOfCPNotifications",
+	"stateName":"showDetailOfCPReport.showDetailOfCPNotifications",
+	"url": "/showDetailOfCPNotifications",
 	"params": ["cgtShowDetailOfCPNotificationsIn"],
+	"sticky": true,
+	"deepStateRedirect": true,
 	"loadModule":["ngMessages", "uiDate", "ngFileUpload", "uiSelect"],
 	"loadCommonComponent": ["T3_CCP_UI_Grid.tablas","T3_CCP_UI_Modales","T3_CCP_UI_datePicker.inputDate", null],
 	"loadCG":[
-		{"name":"showDetailOfCPNotifications","tipos":"c,co,s,mw"}
+		{"name":"showDetailOfCPNotifications","tipos":"c,co,s,m"}
 	]
 }

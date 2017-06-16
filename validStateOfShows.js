@@ -32,8 +32,6 @@ var getState = function(){
     }
     return false;
 }
-
-
 function isValid(filename){
     var srcCode = fs.readFileSync(filename);
     var ast = esprima.parse(srcCode.toString(), {
@@ -94,7 +92,7 @@ function isValid(filename){
             ],
             "sourceType": "script"
         };
-        fs.writeFile('joderse.js' , escodegen.generate(_obj), function(err){});
+        ///fs.writeFile('joderse.js' , escodegen.generate(_obj), function(err){});
         ValidateState(_obj);
 
     });
