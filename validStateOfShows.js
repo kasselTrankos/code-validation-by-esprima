@@ -24,17 +24,25 @@ function ValidateState(node, filename){
     var _state = getState();
     var _cnt = getNameOfCNT(filename);
     stateValidator(getState(), node, function(err){
+        if(err.gotAny){
+            console.log(`Correige los errores state ${_state} en el CNT ${_cnt}`.yellow);
+            var _s = 1;
+            for(var i =0; i<err.loadCG.length;i++){
+                console.log(`\t(${_s}) ${err.loadCG[i].title} en la linea ${err.loadCG[i].loc.start.line}`.grey);
+                _s++;
+            }
+            for(var i =0; i<err.loadModule.length;i++){
+                console.log(`\t(${_s}) ${err.loadModule[i].title} en la linea ${err.loadModule[i].loc.start.line}`.grey);
+                _s++
+            }
+            for(var i =0; i<err.loadCommonComponent.length;i++){
+                console.log(`\t(${_s}) ${err.loadCommonComponent[i].title} en la linea ${err.loadCommonComponent[i].loc.start.line}`.grey);
+                _s++
+            }
+        }else{
+            console.log(`El state ${_state} esta ok en el CNT ${_cnt}`.green);
+        }
 
-        console.log(`Validando state ${_state} CNT ${_cnt}`.yellow);
-        var _s = 1;
-        for(var i =0; i<err.loadCG.length;i++){
-            console.log(`\t(${_s}) ${err.loadCG[i].title} en la linea ${err.loadCG[i].loc.start.line}`.grey);
-            _s++;
-        }
-        for(var i =0; i<err.loadModule.length;i++){
-            console.log(`\t(${_s}) ${err.loadModule[i].title} en la linea ${err.loadModule[i].loc.start.line}`.grey);
-            _s++
-        }
 
     });
 }
