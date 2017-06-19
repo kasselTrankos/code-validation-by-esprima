@@ -21,9 +21,33 @@ var fs = require('fs'),
 var __m = 0;
 var __states = [];
 function ValidateState(node, filename){
-    stateValidator(getState(), node);
-}
+    var _state = getState();
+    var _cnt = getNameOfCNT(filename);
+    stateValidator(getState(), node, function(err){
 
+        console.log(`Validando state ${_state} CNT ${_cnt}`.yellow);
+        var _s = 1;
+        for(var i =0; i<err.loadCG.length;i++){
+            console.log(`\t(${_s}) ${err.loadCG[i].title} en la linea ${err.loadCG[i].loc.start.line}`.grey);
+            _s++;
+        }
+        for(var i =0; i<err.loadModule.length;i++){
+            console.log(`\t(${_s}) ${err.loadModule[i].title} en la linea ${err.loadModule[i].loc.start.line}`.grey);
+            _s++
+        }
+
+    });
+}
+var getNameOfCNT = function(filename){
+    var e = filename.split(path.sep);
+    var patt = new RegExp(/^cnt\-.*/);
+    for(var i = 0; i<e.length; i++){
+        if(patt.test(e[i])){
+            return e[i].split('-')[1];
+        }
+    }
+    return 'no CNT';
+};
 var getState = function(){
     for(var i =0; i<process.argv.length; i++){
         if(process.argv[i]=='-s'){
@@ -43,6 +67,9 @@ function isValid(filename){
     eswalk(ast, function(node, parent) {
         if (node.type == 'ExpressionStatement' &&
             node.expression.type == 'CallExpression' &&
+            node.expression.callee &&
+            node.expression.callee.property &&
+            node.expression.callee.property.name &&
             node.expression.callee.property.name == 'state') {
             //fs.writeFile('mierda.js' , escodegen.generate(node), function(err){});
             //jsonfile.writeFile(`all_states.json`, node, {spaces: 2}, function(err, obj) {});
@@ -59,10 +86,11 @@ function isValid(filename){
             });
         }
     });
-    //console.error('ASXD;DFASKIDASRFKIDSGFIDFSGOIg',_states);
 
     if(!_states){
-        console.error('no _states');
+        var _state = getState();
+        var _cnt = getNameOfCNT(filename);
+        console.error(`No hay el state ${_state} en CNT ${_cnt}`.green);
         return false;
     }
     umount(_states, function(node, parent){
@@ -94,12 +122,8 @@ function isValid(filename){
             "sourceType": "script"
         };
         ///fs.writeFile('joderse.js' , escodegen.generate(_obj), function(err){});
-        ValidateState(_obj);
-
+        ValidateState(_obj, filename);
     });
-
-
-
 }
 
 dir.readFiles(process.cwd(), {

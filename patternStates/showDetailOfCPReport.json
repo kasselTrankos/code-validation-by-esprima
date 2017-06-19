@@ -5,9 +5,9 @@
 	"loadModule":["ngMessages", "uiDate", "ngFileUpload", "uiSelect"],
 	"loadCommonComponent": ["T3_CCP_UI_Grid.tablas","T3_CCP_UI_Modales","T3_CCP_UI_datePicker.inputDate", null],
 	"loadCG":[
-		{"name":"showDetailOfCPReport","tipos":"c,co,s,mw"},
-        {"name":"showPartyRoleHeader","tipos":"c,co,d,s,m"},
-        {"name":"viewIncidentList","tipos":"c,co,d,s,m"},
-        {"name":"showMinimalCPData","tipos":"c,co,d,s,m"}
+		{"name":"showDetailOfCPReport","tipos":"c,co,s,m"},
+       	{"name":"showPartyRoleHeader","tipos":"c,co,d,s,m"},
+       	{"name":"viewIncidentList","tipos":"c,co,d,s,m"},
+       	{"name":"showMinimalCPData","tipos":"c,co,d,s,m"}
 	]
 }
