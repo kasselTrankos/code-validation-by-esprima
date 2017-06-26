@@ -1,0 +1,21 @@
+{
+	"stateName":"showDetailOfCPReport.showDetOfTechDeviceCPResProp",
+	"url": "/showDetOfTechDeviceCPResProp",
+	"params": ["cgtShowDetOfTechDeviceCPResPropIn"],
+	"sticky": true,
+	"loadModule":["ngMessages", "uiDate", "ngFileUpload", "uiSelect"],
+	"loadCommonComponent": ["T3_CCP_UI_Grid.tablas","T3_CCP_UI_Modales","T3_CCP_UI_datePicker.inputDate", null],
+	"loadCG":[
+		{"name":"showDetOfTechDeviceCPResProp","tipos":"c,co,s,m"},
+       {"name":"manageCPAttachment","tipos":"c,co,d,s,m"},
+       {"name":"showDetailOfExternalAction","tipos":"c,co,d,s,m"},
+       {"name":"showCustomerOrderDetailsOH","tipos":"c,co,d,s,m"},
+       {"name":"displayCOHistoryOH","tipos":"c,s,m,d"},
+       {"name":"showCustomerOrderHistoryOH","tipos":"c,co,s,m"},
+       {"name":"showCQRelatedTicketData","tipos":"c,co,d,s,m"},
+       {"name":"showOrchestrationPlanOH","tipos":"c,s,m,d" },
+       {"name":"showMinimalCustomerData","tipos":"c,s,m,d"},
+       {"name":"displaySPOrderItemConsultation","tipos":"c,s,m,d"},
+       {"name":"displaySPPOIConsultation","tipos":"c,co,s,m,d"}
+	]
+}
