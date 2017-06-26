@@ -25,7 +25,7 @@ function ValidateState(node, filename){
     var _cnt = getNameOfCNT(filename);
     stateValidator(getState(), node, function(err){
         if(err.gotAny){
-            console.log(`Correige los errores state ${_state} en el CNT ${_cnt}`.yellow);
+            console.log(`Corrige los errores state ${_state} en el CNT ${_cnt}`.yellow);
             var _s = 1;
             for(var i =0; i<err.loadCG.length;i++){
                 console.log(`\t(${_s}) ${err.loadCG[i].title} en la linea ${err.loadCG[i].loc.start.line}`.grey);
@@ -37,6 +37,10 @@ function ValidateState(node, filename){
             }
             for(var i =0; i<err.loadCommonComponent.length;i++){
                 console.log(`\t(${_s}) ${err.loadCommonComponent[i].title} en la linea ${err.loadCommonComponent[i].loc.start.line}`.grey);
+                _s++
+            }
+            for(var i =0; i<err.properties.length;i++){
+                console.log(`\t(${_s}) ${err.properties[i].title} en la linea ${err.properties[i].loc.start.line}`.grey);
                 _s++
             }
         }else{

@@ -1,0 +1,13 @@
+{
+	"stateName":"showDetailOfCPReport.showDetailOfAssuranceCP",
+	"url": "/showDetailOfAssuranceCP",
+	"params": ["cgtShowDetailOfAssuranceCPIn"],
+	"sticky": true,
+
+	"loadModule":["ngMessages", "uiDate", "ngFileUpload", "uiSelect"],
+	"loadCommonComponent": ["T3_CCP_UI_Grid.tablas","T3_CCP_UI_Modales","T3_CCP_UI_datePicker.inputDate", null],
+	"loadCG":[
+		{"name":"showDetailOfAssuranceCP","tipos":"c,co,s,m"},
+       	{"name":"manageCPContact","tipos":"c,co,d,s,m"}
+	]
+}
