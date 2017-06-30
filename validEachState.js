@@ -61,7 +61,7 @@ var print = function(e, safe, filename){
         }else{
             console.log(`\tState:` ,`${e[i].state}`.green);
             for(var t = 0; t<e[i].errors.length; t++){
-                console.log(`\t\t${e[i].errors[t].reference} en linea ${e[i].errors[t].loc.start.line}`);
+                console.log(`\t\t(${t+1}) ${e[i].errors[t].reference} en linea ${e[i].errors[t].loc.start.line}`);
             }
         }
         
