@@ -29,7 +29,7 @@ function query(node, callback){
         jsonfile.writeFile(`m0.json`,  _m[0], {spaces: 4}, function(err, obj) {});
 
         for(var i =0; i<_m.length; i++){
-            params(_m[i].arguments, _m[i].loc, function(e){
+            params(_m[i].arguments, _m[i].arguments[0].loc, function(e){
                 if(e.safe===false) safe = false;
                 _err.push(e);
             });
