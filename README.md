@@ -12,3 +12,4 @@ npm i
 - (noMoreOneSubscribe.js) Localiza duplicado en el subscribe sobre el mismo evento
 - (validStateOfShows.js) necesita que se le pase por consola -s nombre de estado ( pronto será más automático). 
     + Por cada state a validar, necesita un pattrón que estan en /patternStates/ nombre state.json
+- (validEachState.js) Localiza los States mal formados(url, params, loadCG, loadTemplate..).

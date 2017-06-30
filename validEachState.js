@@ -21,12 +21,12 @@ var fs = require('fs'),
 
 
 function query(node, callback){
-    var _q = 'CallExpression [callee.property.name="state"]';
+    var _q = 'MemberExpression [callee.property.name="state"]';
     var _m = esquery(node, _q);
     var _err = [], safe = true;
 
     if(_m.length>0){
-        jsonfile.writeFile(`m0.json`,  _m[0], {spaces: 4}, function(err, obj) {});
+        //jsonfile.writeFile(`m0.json`,  _m[0], {spaces: 4}, function(err, obj) {});
 
         for(var i =0; i<_m.length; i++){
             params(_m[i].arguments, _m[i].arguments[0].loc, function(e){
@@ -37,21 +37,31 @@ function query(node, callback){
     }   
     callback(_err, safe);     
 };
+var getNameOfCNT = function(filename){
+    var e = filename.split(path.sep);
+    var patt = new RegExp(/^cnt\-.*/);
+    for(var i = 0; i<e.length; i++){
+        if(patt.test(e[i])){
+            return e[i].split('-')[1];
+        }
+    }
+    return 'no CNT';
+};
 var print = function(e, safe, filename){
-    console.log(filename);
+    var _cnt = getNameOfCNT(filename);
     if(safe==true){
-        console.log(`El state ${filename} esta OK`.green);
+        //console.log(`El state ${filename} esta OK`.green);
         return false;
     }
-     console.log(`Corrige los siguientes errores del ${filename}`.cyan);
+     console.log(`\nCorrige los siguientes errores del CNT ${_cnt}`.cyan);
     for(var i =0 ; i<e.length; i++){
         if(e[i].safe){
-            console.log(`\tState: ${e[i].state} OK`.green);
+            //console.log(`\tState: ${e[i].state} OK`.green);
             continue;
         }else{
-            console.log(`\tCorrije los erores del State: ${e[i].state}`.gray);
+            console.log(`\tState:` ,`${e[i].state}`.green);
             for(var t = 0; t<e[i].errors.length; t++){
-                console.log(`\t\t${e[i].errors[t].reference} en linea ${e[i].errors[t].loc.start.line}`.gray);
+                console.log(`\t\t${e[i].errors[t].reference} en linea ${e[i].errors[t].loc.start.line}`);
             }
         }
         
@@ -75,8 +85,10 @@ dir.readFiles(process.cwd(), {
     exclude: ['target', 'test']
     }, function(err, content, filename, next) {
         if (err) throw err;
-        if(!(/test/.test( filename) || /target/.test(filename))) {
+
+        if(!(/test/.test( filename) || /target/.test(filename) || /cnt-ManageCPInformation/.test(filename))) {
             if(/app.js$/.test(filename)){
+
                 isValid(filename);
             }
         }
