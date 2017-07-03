@@ -26,7 +26,7 @@ var toHTML = false,
     html+='<body><h1>State revisión</h1><div class="row"><div class="col-md-8 col-md-offset-1">{body}</div></div></body></html>';
 init();
 function init(){
-    if(process.argv.lastIndexOf('-o')){
+    if(process.argv.lastIndexOf('-o')>=0){
         toHTML = true;
     }
 }

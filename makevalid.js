@@ -29,7 +29,6 @@ var fs = require('fs'),
     esquery = require('esquery'),
     dir = require('node-dir'),
     escodegen = require('escodegen'),
-    CircularJSON = require('CircularJSONcular-json'),
     util = require('util'),
     recursive = require('recursive-readdir'),
     jsonfile = require('jsonfile'),
@@ -325,7 +324,7 @@ dir.readFiles(process.cwd(), {
     },
     function(err, files){
         if (err) throw err;
-        generateHTML();
+        if(process.argv.lastIndexOf('-o')>=0)  generateHTML();
         //console.log('finished reading files:',files);
         //allfiles = files;
         //console.log(allfiles);
