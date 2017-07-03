@@ -19,6 +19,17 @@ var fs = require('fs'),
     escope = require('escope'),
     params = require('./lib/state/params');
 
+var toHTML = false,
+    cdn = 'https://cdnjs.cloudflare.com/ajax/libs/mini.css/2.3.2/mini-default.min.css',
+    str = '',
+    html = '<html><head><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></head>';
+    html+='<body><h1>State revisión</h1><div class="row"><div class="col-md-8 col-md-offset-1">{body}</div></div></body></html>';
+init();
+function init(){
+    if(process.argv.lastIndexOf('-o')){
+        toHTML = true;
+    }
+}
 
 function query(ast, callback){
     var _err = [], safe = true;
@@ -47,25 +58,6 @@ function query(ast, callback){
         }
     });
     callback(_err, safe);     
-    //jsonfile.writeFile(`m0.json`,  _states, {spaces: 4}, function(err, obj) {});
-    // var _q = 'MemberExpression [callee.property.name="state"]';
-    // var _m = esquery(node, _q);
-    // var _err = [], safe = true;
-
-    // if(_m.length>0){
-    //     //jsonfile.writeFile(`m0.json`,  _m[0], {spaces: 4}, function(err, obj) {});
-        
-    //     for(var i =0; i<_m.length; i++){
-    //         // fs.writeFile(`file_${i}.js`, escodegen.generate(_m[i]), function (err) {
-    //         //     if (err) return console.log(err);
-    //         // });
-    //         params(_m[i].arguments, _m[i].arguments[0].loc, function(e){
-    //             if(e.safe===false) safe = false;
-    //             _err.push(e);
-    //         });
-    //     }
-    // }   
-    // callback(_err, safe);     
 };
 var getNameOfCNT = function(filename){
     var e = filename.split(path.sep);
@@ -80,26 +72,42 @@ var getNameOfCNT = function(filename){
 var print = function(e, safe, filename){
     var _cnt = getNameOfCNT(filename);
     if(safe==true){
-        //console.log(`El state ${filename} esta OK`.green);
         return false;
     }
-     console.log(`\nCorrige los siguientes errores del CNT ${_cnt}`.cyan);
+    if(toHTML){
+        str+=`<h3>Corrige los siguientes errores del CNT <span class="text-success">${_cnt}</span></h3>`;
+    }else{
+        console.log(`\nCorrige los siguientes errores del CNT ${_cnt}`.cyan);
+    }
+    
     for(var i =0 ; i<e.length; i++){
         if(e[i].safe){
             //console.log(`\tState: ${e[i].state} OK`.green);
             continue;
         }else{
-            console.log(`\tState:` ,`${e[i].state}`.green);
+            if(toHTML){
+                str+=`<div class="row">`;
+                str+=`<div class="col-sm-10 col-sm-offset-1">`;
+                str+=`<p>State: <span class="text-danger">${e[i].state}</span></p>`;
+                str+=`<ol class="col-sm-8 col-sm-offset-1">`;
+            }else{
+                console.log(`\tState:` ,`${e[i].state}`.green);
+            }
             for(var t = 0; t<e[i].errors.length; t++){
-                console.log(`\t\t(${t+1}) ${e[i].errors[t].reference} en linea ${e[i].errors[t].loc.start.line}`);
+                if(toHTML){
+                    str+=`<li>${e[i].errors[t].reference} en linea ${e[i].errors[t].loc.start.line}</li>`;
+                }else{
+                    console.log(`\t\t(${t+1}) ${e[i].errors[t].reference} en linea ${e[i].errors[t].loc.start.line}`);
+                }
+            }
+            if(toHTML){
+                str+=`</ol></div></div>`;
             }
         }
-        
-        
     }
 };
-
 function isValid(filename){
+    
     var srcCode = fs.readFileSync(filename);
     var ast = esprima.parse(srcCode.toString(), {
         loc: true
@@ -108,17 +116,13 @@ function isValid(filename){
         print(e, safe, filename);
     });
 };
-
-
 dir.readFiles(process.cwd(), {
     match: /^app.js$/,
     exclude: ['target', 'test']
     }, function(err, content, filename, next) {
         if (err) throw err;
-
         if(!(/test/.test( filename) || /target/.test(filename) || /cnt-ManageCPInformation/.test(filename))) {
             if(/app.js$/.test(filename)){
-
                 isValid(filename);
             }
         }
@@ -126,5 +130,8 @@ dir.readFiles(process.cwd(), {
     },
     function(err, files){
         if (err) throw err;
+        if(toHTML){
+            fs.writeFile('resultados.html', html.replace('{body}', str), function(err){});
+        }
     }
 );
