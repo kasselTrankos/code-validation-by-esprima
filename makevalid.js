@@ -228,7 +228,7 @@ function showConsoleData(filename){
     console.log('\n\nTOTAL : '+ count);
     if(showAll || kos>0 || ckos>0){
         toHtml.push({
-            title: filename,
+            title: filename.split(path.sep).slice(-1)[0],
             errGetSpinners: kos,
             errCloseSpinners: ckos,
             getSpinners:getSpinners,
