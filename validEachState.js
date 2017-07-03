@@ -31,7 +31,7 @@ function init(){
     }
 }
 
-function query(ast, callback){
+function query(ast, cnt, callback){
     var _err = [], safe = true;
     eswalk(ast, function(node, parent) {
         if (node.type == 'ExpressionStatement' &&
@@ -49,7 +49,7 @@ function query(ast, callback){
                 _node.arguments[1] &&
                 _node.arguments[1].type &&
                 _node.arguments[1].type=='ObjectExpression') {
-                    params(_node.arguments, _node.arguments[0].loc, function(e){
+                    params(_node.arguments, _node.arguments[0].loc, cnt, function(e){
                         if(e.safe===false) safe = false;
                         _err.push(e);
                     });
@@ -112,7 +112,7 @@ function isValid(filename){
     var ast = esprima.parse(srcCode.toString(), {
         loc: true
     });
-    query(ast, function(e, safe){
+    query(ast, getNameOfCNT(filename), function(e, safe){
         print(e, safe, filename);
     });
 };
