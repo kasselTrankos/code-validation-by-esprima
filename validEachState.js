@@ -20,22 +20,52 @@ var fs = require('fs'),
     params = require('./lib/state/params');
 
 
-function query(node, callback){
-    var _q = 'MemberExpression [callee.property.name="state"]';
-    var _m = esquery(node, _q);
+function query(ast, callback){
     var _err = [], safe = true;
-
-    if(_m.length>0){
-        //jsonfile.writeFile(`m0.json`,  _m[0], {spaces: 4}, function(err, obj) {});
-
-        for(var i =0; i<_m.length; i++){
-            params(_m[i].arguments, _m[i].arguments[0].loc, function(e){
-                if(e.safe===false) safe = false;
-                _err.push(e);
+    eswalk(ast, function(node, parent) {
+        if (node.type == 'ExpressionStatement' &&
+            node.expression.type == 'CallExpression' &&
+            node.expression.callee.property &&
+            node.expression.callee.property.name &&
+            node.expression.callee.property.name == 'state') {
+            eswalk(node, function(_node, _parent){
+               if (_node.type== 'CallExpression' &&
+                _node.callee &&                            
+                _node.arguments &&
+                _node.arguments[0] &&
+                _node.arguments[0].type &&
+                _node.arguments[0].type=='Literal' &&
+                _node.arguments[1] &&
+                _node.arguments[1].type &&
+                _node.arguments[1].type=='ObjectExpression') {
+                    params(_node.arguments, _node.arguments[0].loc, function(e){
+                        if(e.safe===false) safe = false;
+                        _err.push(e);
+                    });
+                }
             });
         }
-    }   
+    });
     callback(_err, safe);     
+    //jsonfile.writeFile(`m0.json`,  _states, {spaces: 4}, function(err, obj) {});
+    // var _q = 'MemberExpression [callee.property.name="state"]';
+    // var _m = esquery(node, _q);
+    // var _err = [], safe = true;
+
+    // if(_m.length>0){
+    //     //jsonfile.writeFile(`m0.json`,  _m[0], {spaces: 4}, function(err, obj) {});
+        
+    //     for(var i =0; i<_m.length; i++){
+    //         // fs.writeFile(`file_${i}.js`, escodegen.generate(_m[i]), function (err) {
+    //         //     if (err) return console.log(err);
+    //         // });
+    //         params(_m[i].arguments, _m[i].arguments[0].loc, function(e){
+    //             if(e.safe===false) safe = false;
+    //             _err.push(e);
+    //         });
+    //     }
+    // }   
+    // callback(_err, safe);     
 };
 var getNameOfCNT = function(filename){
     var e = filename.split(path.sep);
